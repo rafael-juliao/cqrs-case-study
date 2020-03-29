@@ -9,9 +9,6 @@ services:
 # RabbitMQ
   rabbitmq:
     image: 'rabbitmq:3.6-management-alpine'
-    #environment:
-    #    RABBITMQ_DEFAULT_USER: 'rabbit'
-    #    RABBITMQ_DEFAULT_PASS: 'rabbit'
     ports:
         - 5672:5672
         - 15672:15672
@@ -21,33 +18,28 @@ services:
 # MongoDB
   mongodb:
     image: mongo
-    # environment:
-    #  MONGO_INITDB_ROOT_USERNAME: root
-    #  MONGO_INITDB_ROOT_PASSWORD: MongoDB2019!
     ports:
       - "27017:27017"
     volumes:
-      - /home/renatogroffe/Desenvolvimento/Docker/Volumes/MongoDB:/data/db
+      - ./data/db:/data/db
     networks:
       - app-network
 
-
-# Application
-  application:
+# micro-services
+  offers-ms:
     image: node:13
     networks:
       - app-network
     volumes:
-      - ../:/usr/src/service
+      - ../services/offers-ms:/usr/src/service
+      - ./wait.sh:/usr/src/service/wait.sh
     working_dir: /usr/src/service
-    #command: bash -c "npm install && npm run app"
     depends_on:
       - "mongodb"
       - "rabbitmq"
     environment:
       MONGO_URL: 'mongodb'
       RABBIT_URL: 'rabbitmq'
-    command: bash -c ".docker/wait.sh mongodb:27017 && .docker/wait.sh rabbitmq:5672 && npm run app"
-    #command: [".docker/wait.sh", "mongodb:27017", "--", ".docker/wait.sh", "rabbitmq:5672", "--", "node index.js"]
+    command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
     ports:
       - 3000:3000

@@ -1,11 +1,12 @@
+import eventPublisher from '../arch/RabbitMQ.mjs'
 import offersPersistence from './OffersPersistence.mjs'
-import offersPublisher from './OffersPublisher.mjs'
+import OfferEvents from './OfferEvents.mjs'
 
 export default {
 
     create: async offer => {
         const createdOffer = await offersPersistence.create(offer)
-        await offersPublisher.publish('offer-created', createdOffer)
+        await eventPublisher.publish(OfferEvents.OFFER_CREATED, createdOffer)
         return createdOffer
     },
 
@@ -16,7 +17,7 @@ export default {
         if (!offer)
             throw new Error(`404|Offer ${offerId} not found`)
 
-        await offersPublisher.publish(`offer-status`, offer)
+        await eventPublisher.publish(`offer-status`, offer)
         return offer
     }
 

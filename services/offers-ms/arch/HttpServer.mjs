@@ -1,18 +1,17 @@
 import logger from './Logger.mjs'
 import config from './Config.mjs'
 import express from 'express'
-import offersController from '../app/OffersController.mjs'
 import httpErrorMiddleware from './HttpErrorMiddleware.mjs'
 import bodyParser from 'body-parser'
 
 export default {
-    start: async () => {
+    start: async (appRouters) => {
         const server = express()
         const api = express.Router()
         api.use(bodyParser.json())
-        api.use(offersController())
-        api.use(httpErrorMiddleware())
+        appRouters.forEach(router => api.use(router))
         server.use('/api', api)
+        server.use(httpErrorMiddleware())
         server.listen(config.httpPort)
         logger.info(`[HTTP] listening at ${config.httpPort}...`)
     }
