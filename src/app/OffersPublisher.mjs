@@ -1,5 +1,5 @@
+import RabbitMQ from '../arch/RabbitMQ.mjs'
+
 export default {
-    publish: (event, offer) => {
-        console.log(`Dispatching Event => ${event} | Offer: ${JSON.stringify(offer)}`)
-    }
+    publish: (event, offer) => RabbitMQ.publish(event, offer)
 }

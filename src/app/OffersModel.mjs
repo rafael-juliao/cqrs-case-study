@@ -5,7 +5,7 @@ export default {
 
     create: async offer => {
         const createdOffer = await offersPersistence.create(offer)
-        offersPublisher.publish('offer-created', createdOffer)
+        await offersPublisher.publish('offer-created', createdOffer)
         return createdOffer
     },
 

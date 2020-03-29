@@ -1,4 +1,4 @@
-import Arch from './src/arch/index.mjs'
+import application from './src/arch/Application.mjs'
 (async () => {
-    await Arch.start()
+    await application.start()
 })()
