@@ -1,0 +1,11 @@
+{
+  "name": "products-ms",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "products microservice",
+  "scripts": {
+    "app": "node index.js"
+  },
+  "author": "Rafael Juliao Bessega",
+  "license": "ISC"
+}

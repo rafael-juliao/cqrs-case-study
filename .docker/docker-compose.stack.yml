@@ -44,3 +44,22 @@ services:
     command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
     ports:
       - 3000:3000
+
+  products-ms:
+    image: node:13
+    networks:
+      - app-network
+    volumes:
+      - ../services/products-ms:/usr/src/service/products-ms
+      - ../services/.arch:/usr/src/service/.arch
+      - ./wait.sh:/usr/src/service/products-ms/wait.sh
+    working_dir: /usr/src/service/products-ms
+    depends_on:
+      - "mongodb"
+      - "rabbitmq"
+    environment:
+      MONGO_URL: 'mongodb'
+      RABBIT_URL: 'rabbitmq'
+    command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
+    ports:
+      - 3001:3000
