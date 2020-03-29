@@ -1,4 +1,4 @@
-import eventPublisher from '../../.arch/RabbitMQ.mjs'
+import eventPublisher from '../../.arch/src/RabbitMQ.mjs'
 import offersPersistence from './OffersPersistence.mjs'
 import OfferEvents from './OfferEvents.mjs'
 
@@ -11,13 +11,9 @@ export default {
     },
 
     changeStatus: async (offerId, status) => {
-
         const offer = await offersPersistence.update(offerId, {status})
-        
-        if (!offer)
-            throw new Error(`404|Offer ${offerId} not found`)
-
-        await eventPublisher.publish(`offer-status`, offer)
+        if (!offer) throw new Error(`404|Offer ${offerId} not found`)
+        await eventPublisher.publish(OfferEvents.OFFER_STATUS_CHANGED, offer)
         return offer
     }
 
