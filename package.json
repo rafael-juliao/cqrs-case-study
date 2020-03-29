@@ -1,6 +1,7 @@
 {
   "name": "offers-ms",
   "version": "1.0.0",
+  "type": "module",
   "description": "offers microservice[",
   "main": "index.js",
   "scripts": {
@@ -17,6 +18,7 @@
   "author": "Rafael Juliao Bessega",
   "license": "ISC",
   "dependencies": {
+    "amqplib": "^0.5.5",
     "awilix": "^4.2.5",
     "express": "^4.17.1",
     "mongodb": "^3.5.5"
