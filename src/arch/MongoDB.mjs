@@ -3,7 +3,11 @@ import config from './Config.mjs'
 import mongoDb from 'mongodb'
 const { MongoClient } = mongoDb
 
-const buildMongoUrl = () => `mongodb://${config.mongoUrl}:${config.mongoPort}`
+const buildMongoUrl = () => {
+    const mongoUrl = `mongodb://${config.mongoUrl}:${config.mongoPort}`
+    logger.secret(`[MONGO] URL: ${mongoUrl}`)
+    return mongoUrl
+}
 
 export default {
     connect: async function () {
