@@ -31,9 +31,10 @@ services:
     networks:
       - app-network
     volumes:
-      - ../services/offers-ms:/usr/src/service
-      - ./wait.sh:/usr/src/service/wait.sh
-    working_dir: /usr/src/service
+      - ../services/offers-ms:/usr/src/service/offers-ms
+      - ../services/.arch:/usr/src/service/.arch
+      - ./wait.sh:/usr/src/service/offers-ms/wait.sh
+    working_dir: /usr/src/service/offers-ms
     depends_on:
       - "mongodb"
       - "rabbitmq"

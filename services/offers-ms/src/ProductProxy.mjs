@@ -1,4 +1,4 @@
-import Config from '../../../arch/Config.mjs'
+import Config from '../../.arch/Config.mjs'
 
 export default {
     getProductsByIdList: async list => {

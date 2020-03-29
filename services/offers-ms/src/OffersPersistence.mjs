@@ -1,4 +1,4 @@
-import mongoDB from '../arch/MongoDB.mjs'
+import mongoDB from '../../.arch/MongoDB.mjs'
 const { objectId } = mongoDB
 
 export default {

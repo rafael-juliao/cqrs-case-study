@@ -1,4 +1,4 @@
-import eventPublisher from '../arch/RabbitMQ.mjs'
+import eventPublisher from '../../.arch/RabbitMQ.mjs'
 import offersPersistence from './OffersPersistence.mjs'
 import OfferEvents from './OfferEvents.mjs'
 
