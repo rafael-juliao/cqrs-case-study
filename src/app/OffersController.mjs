@@ -13,10 +13,14 @@ export default () => {
             next(err)
         }
     })
-    offersRouter.patch('/offers/:offerId/activate', (req, res, next) => {
-        
+    offersRouter.patch('/offers/:offerId/status', async (req, res, next) => {
+        try {
+            const offer = await offersModel.changeStatus(req.params.offerId, req.body.status)
+            res.status(200).json(offer).end()
+        } catch (err) {
+            next(err)
+        }
     })
-    
     logger.info(`[HTTP] Created offers controller`)
     return offersRouter
 }

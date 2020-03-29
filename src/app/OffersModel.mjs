@@ -11,7 +11,7 @@ export default {
 
     changeStatus: async (offerId, status) => {
 
-        const offer = await offersPersistence.update({ offerId }, {status})
+        const offer = await offersPersistence.update({offerId}, {status})
         
         if (!offer)
             throw new Error(`404|Offer ${offerId} not found`)
