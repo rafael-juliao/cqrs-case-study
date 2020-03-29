@@ -1,7 +1,7 @@
 import logger from './Logger.mjs'
 import config from './Config.mjs'
-import mongoDb from 'mongodb'
-const { MongoClient } = mongoDb
+import mongodb from 'mongodb'
+const { MongoClient, ObjectID } = mongodb
 
 const buildMongoUrl = () => {
     const mongoUrl = `mongodb://${config.mongoUrl}:${config.mongoPort}`
@@ -10,6 +10,9 @@ const buildMongoUrl = () => {
 }
 
 export default {
+
+    objectId: id => new ObjectID(id),
+
     connect: async function () {
         logger.info('[MONGO] Connecting to mongo database...')
 
@@ -19,10 +22,10 @@ export default {
             const database = client.db(config.mongoDatabase)
             Object.assign(this, {
                 collection: name => database.collection(name),
-                close: () => client && client.close
+                close: () => client && client.close,
             })
         } catch (err) {
-            throw new Error('Failed to connect to mongoDb', err)
+            throw new Error('Failed to connect to mongodb', err)
         }
         logger.info('[MONGO] Connected to mongo database')
     }
