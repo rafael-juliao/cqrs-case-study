@@ -2,11 +2,13 @@ import config from './Config.mjs'
 import logger from './Logger.mjs'
 import amqpClient from 'amqplib'
 
+const buildRabbitUrl = () => `amqp://${config.rabbitUrl}:${config.rabbitPort}`
+
 export default {
     connect: async function () {
         logger.info('[RABBIT] Connecting to rabbit message queue...')
         try {            
-            const connection = await amqpClient.connect(config.rabbitUrl)
+            const connection = await amqpClient.connect(buildRabbitUrl())
             const channel = await connection.createChannel()
             Object.assign(this, {
                 publish: async (queue, object) => {

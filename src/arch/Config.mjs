@@ -1,11 +1,13 @@
 export default {
     
-    serverPort: process.env.APP_PORT || 3000,
+    httpPort: process.env.APP_PORT || 3000,
 
-    mongoUrl: process.env.MONGO_URL || 'mongodb://localhost:27017',
+    mongoUrl: process.env.MONGO_URL || 'localhost',
+    mongoPort: process.env.MONGO_PORT || 27017,
     mongoUser: process.env.MONGO_USER || '',
     mongoPass: process.env.MONGO_PASS || '',
     mongoDatabase: process.env.MONGO_DATABASE || 'offers-ms',
 
-    rabbitUrl: 'amqp://localhost:5672'
+    rabbitUrl: process.env.RABBIT_URL || 'localhost',
+    rabbitPort: process.env.RABBIT_PORT || 5672,
 }

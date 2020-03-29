@@ -13,7 +13,7 @@ export default {
         api.use(offersController())
         api.use(httpErrorMiddleware())
         server.use('/api', api)
-        server.listen(config.serverPort)
-        logger.info(`[HTTP] listening at ${config.serverPort}...`)
+        server.listen(config.httpPort)
+        logger.info(`[HTTP] listening at ${config.httpPort}...`)
     }
 }
