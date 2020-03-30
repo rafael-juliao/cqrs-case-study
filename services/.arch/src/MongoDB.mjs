@@ -11,7 +11,7 @@ const buildMongoUrl = () => {
 
 export default {
 
-    objectId: id => new ObjectID(id),
+    mongoId: id => new ObjectID(id),
 
     connect: async function () {
         logger.info('[MONGO] Connecting to mongo database...')

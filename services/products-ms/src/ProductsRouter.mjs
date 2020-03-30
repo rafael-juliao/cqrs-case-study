@@ -6,6 +6,7 @@ export default () => {
     logger.info('[HTTP] Creating products controller')
     const { Router } = HttpServer
     const productsRouter = Router()
+    productsRouter.get('/products/:productId', productsController.getProduct)
     productsRouter.post('/products', productsController.createProduct)
     productsRouter.patch('/products/:productId/status', productsController.changeStatus)
     return productsRouter
