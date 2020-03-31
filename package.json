@@ -6,11 +6,11 @@
   "main": "index.js",
   "scripts": {
 
-    "deploy:env": "docker-compose -f .docker/docker-compose.environment.yml up -d",
+    "deploy:env": "docker-compose -p tcc-environment -f .docker/docker-compose.environment.yml up -d",
     "kill:env": "docker-compose -f .docker/docker-compose.environment.yml down",
     "reset:env": "npm run kill:env; npm run deploy:env",
 
-    "deploy:stack": "docker-compose -f .docker/docker-compose.stack.yml up -d",
+    "deploy:stack": "docker-compose -p tcc-integrated-apps -f .docker/docker-compose.stack.yml up -d",
     "kill:stack": "docker-compose -f .docker/docker-compose.stack.yml down",
     "reset:stack": "npm run kill:stack; npm run deploy:stack"
     
