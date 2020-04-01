@@ -58,7 +58,7 @@ services:
       MONGO_DATABASE: 'offers'
     command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
     ports:
-      - 3000:3000
+      - 3001:3000
 
   products-ms:
     image: node:13
@@ -78,4 +78,4 @@ services:
       MONGO_DATABASE: 'products'
     command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
     ports:
-      - 3001:3000
+      - 3000:3000
