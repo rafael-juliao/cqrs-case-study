@@ -1,6 +1,4 @@
-import config from './config'
-
-export default () => ({
+export default ({ config }) => ({
     [OFFER_CREATED]: { 
         topic: config.events.topics.offer_created
     },
