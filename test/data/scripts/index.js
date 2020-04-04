@@ -1,9 +1,9 @@
 
 (async () => {
-    const CreateOffers = require('../services/CreateOffers')
-    await CreateOffers({
-        offers: {
-            count: 100000
+    const CreateOffers = require('../services/OffersService')
+    await CreateOffers.insertOffers({
+        offersConfig: {
+            count: 200
         }
     })
 })()
