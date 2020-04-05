@@ -1,6 +1,6 @@
 import database from database
 import messageSubscriber from messageSubscriber
-import httpServer from '../arch/requests/HttpServer'
+import httpServer from '../src/arch/requests/HttpServer'
 import offersController from './offers/OffersController'
 
 const startApplication = async () => {

@@ -1,2 +1,0 @@
-import MessageQueueAdapter from 'arch'
-
