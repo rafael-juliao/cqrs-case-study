@@ -6,8 +6,8 @@ module.exports = ({
 } = {}) => ({
     name: name || dataFaker.name(),
     price: dataFaker.price(),
-    products: products.map(_id => ({
-        _id,
+    items: products.map(_id => ({
+        product: { _id },
         quantity: dataFaker.quantity(),
     }))
 })

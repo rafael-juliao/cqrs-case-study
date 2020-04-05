@@ -1,6 +1,6 @@
 export default {
     
-    httpPort: process.env.APP_PORT || 3000,
+    httpPort: process.env.HTTP_PORT || 3000,
 
     mongoUrl: process.env.MONGO_URL || 'localhost',
     mongoPort: process.env.MONGO_PORT || 27017,
@@ -10,4 +10,7 @@ export default {
 
     rabbitUrl: process.env.RABBIT_URL || 'localhost',
     rabbitPort: process.env.RABBIT_PORT || 5672,
+
+    productsUrl: process.env.PRODUCTS_URL || 'localhost',
+    productsPort: process.env.PRODUCTS_PORT || 3000,
 }

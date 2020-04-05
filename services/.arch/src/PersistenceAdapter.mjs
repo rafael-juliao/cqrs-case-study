@@ -23,8 +23,7 @@ export default collection => ({
     get: async (objectId) => {
         try {
             const result = await mongoDB.collection(collection).findOne({ _id: mongoId(objectId) })
-            const updatedObject = result.value
-            return updatedObject
+            return result
         } catch(err) {
             throw new Error(`500|Failed to get ${objectId} in ${collection}`)
         }

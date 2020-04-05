@@ -12,7 +12,7 @@ describe('Given that I have 100 offers, and 10 of those contains products with n
     })
     context('when I search a offers by text with string "PRODUCT_A"', () => {
         it('should return 10 offers that contains products with name equal "PRODUCT_A"', () => {
-
+            
         })
     })
 })

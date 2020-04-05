@@ -21,6 +21,16 @@ export default {
         } catch (err) {
             next(err)
         }
+    },
+
+    getOfferById: async (req, res, next) => {
+        try {
+            const { offerId } = req.params
+            const offer = await offersService.getOfferById(offerId)
+            res.status(200).json(offer).end()
+        } catch (err) {
+            next(err)
+        }
     }
     
 }

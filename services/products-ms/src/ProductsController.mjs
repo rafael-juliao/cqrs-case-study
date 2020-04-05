@@ -18,7 +18,7 @@ export default {
         try {
             const { productId } = req.params
             const createdProduct = await productsPersistence.get(productId)
-            res.status(201).json(createdProduct).end()
+            res.status(200).json(createdProduct).end()
         } catch (err) {
             next(err)
         }

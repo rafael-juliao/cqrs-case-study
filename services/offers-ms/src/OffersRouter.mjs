@@ -8,5 +8,6 @@ export default () => {
     const offersRouter = Router()
     offersRouter.post('/offers', offersController.createOffer)
     offersRouter.patch('/offers/:offerId/status', offersController.changeStatus)
+    offersRouter.get('/offers/:offerId', offersController.getOfferById)
     return offersRouter
 }

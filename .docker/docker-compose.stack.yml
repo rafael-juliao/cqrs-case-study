@@ -56,6 +56,7 @@ services:
       MONGO_URL: 'mongodb'
       RABBIT_URL: 'rabbitmq'
       MONGO_DATABASE: 'offers'
+      PRODUCTS_URL: 'products-ms'
     command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
     ports:
       - 3001:3000
