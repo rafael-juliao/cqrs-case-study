@@ -13,8 +13,11 @@ module.exports = {
             const createdOffer = await offersClient.create(generatedOffer)
             offers.push(createdOffer)            
         }
-        productsService.logStatistics()
         return offers
+    },
+
+    logStatistics: function () {
+        productsService.logStatistics()
     }
 
 
