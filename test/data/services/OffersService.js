@@ -4,16 +4,17 @@ const offersClient = require('../client/OffersClient')
 
 module.exports = {
 
-    insertOffers: async function ({ offersConfig: { count = 1, data = {} }, productsConfig }) {
+    insertOffers: async function ({ offersConfig: { count = 1, products, data = {} }, productsConfig }) {
         const offers = []
         while (count--) {
-            const offerProducts = await productsService.insertProducts(productsConfig)
-            const generatedOffer = offerDataFaker({ products: offerProducts, ...data })
+            if(!products)
+                products = await productsService.insertProducts(productsConfig)
+            const generatedOffer = offerDataFaker({ products, ...data })
             const createdOffer = await offersClient.create(generatedOffer)
             offers.push(createdOffer)            
         }
         productsService.logStatistics()
-        return offers;
+        return offers
     }
 
 

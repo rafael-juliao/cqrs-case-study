@@ -17,6 +17,18 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Integration Tests",
+            "program": "${workspaceFolder}/test/node_modules/mocha/bin/_mocha",
+            "cwd": "${workspaceFolder}/test",
+            "args": [
+                "--config",
+                "./integrations/testconfig.json",
+                "--exit"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "scripts",
             "skipFiles": [
                 "<node_internals>/**"
