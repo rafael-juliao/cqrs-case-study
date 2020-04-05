@@ -1,0 +1,82 @@
+version: '3'
+
+networks: 
+    app-network:
+      driver: bridge
+
+services:
+
+# RabbitMQ
+  rabbitmq:
+    image: 'rabbitmq:3.6-management-alpine'
+    ports:
+        # rabbit
+        - 5672:5672
+        # rabbit panel
+        - 15672:15672
+    networks:
+      - app-network
+
+# MongoDB Access
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    links:
+      - mongodb
+    networks:
+      - app-network
+
+# MongoDB
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    networks:
+      - app-network
+
+# micro-services
+  offers-ms:
+    image: node:13
+    networks:
+      - app-network
+    volumes:
+      - ../services/offers-ms:/usr/src/service/offers-ms
+      - ../services/.arch:/usr/src/service/.arch
+      - ./wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
+    working_dir: /usr/src/service/offers-ms
+    depends_on:
+      - "mongodb"
+      - "rabbitmq"
+    environment:
+      MONGO_URL: 'mongodb'
+      RABBIT_URL: 'rabbitmq'
+      MONGO_DATABASE: 'offers'
+      PRODUCTS_URL: 'products-ms'
+    command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
+    ports:
+      - 3001:3000
+
+  products-ms:
+    image: node:13
+    networks:
+      - app-network
+    volumes:
+      - ../services/products-ms:/usr/src/service/products-ms
+      - ../services/.arch:/usr/src/service/.arch
+      - ./wait-for-it.sh:/usr/src/service/products-ms/wait.sh
+    working_dir: /usr/src/service/products-ms
+    depends_on:
+      - "mongodb"
+      - "rabbitmq"
+    environment:
+      MONGO_URL: 'mongodb'
+      RABBIT_URL: 'rabbitmq'
+      MONGO_DATABASE: 'products'
+    command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
+    ports:
+      - 3000:3000

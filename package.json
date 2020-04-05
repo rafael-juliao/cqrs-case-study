@@ -1,10 +1,19 @@
 {
-  "name": "offers-ms",
+  "name": "integrated-microservices",
   "version": "1.0.0",
-  "description": "offers microservice[",
+  "type": "module",
+  "description": "An integrated environemnt containing everything necessary to test the CQRS query service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No test\""
+
+    "deploy:env": "docker-compose -p tcc-environment -f .docker/docker-compose.environment.yml up -d",
+    "kill:env": "docker-compose -p tcc-environment -f .docker/docker-compose.environment.yml down",
+    "reset:env": "npm run kill:env; npm run deploy:env",
+
+    "deploy:stack": "docker-compose -p tcc-integrated-apps -f .docker/docker-compose.stack.yml up -d",
+    "kill:stack": "docker-compose -p tcc-integrated-apps -f .docker/docker-compose.stack.yml down",
+    "reset:stack": "npm run kill:stack; npm run deploy:stack"
+    
   },
   "repository": {
     "type": "git",
@@ -15,10 +24,5 @@
     "sample"
   ],
   "author": "Rafael Juliao Bessega",
-  "license": "ISC",
-  "dependencies": {
-    "awilix": "^4.2.5",
-    "express": "^4.17.1",
-    "mongodb": "^3.5.5"
-  }
+  "license": "ISC"
 }

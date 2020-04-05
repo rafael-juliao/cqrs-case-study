@@ -1,0 +1,1 @@
+import OffersEventMapperRabbitMQ from "./infra/OffersEventMapperRabbitMQ"

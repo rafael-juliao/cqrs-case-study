@@ -1,0 +1,11 @@
+{
+  "name": "offers-ms",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "offers microservice",
+  "scripts": {
+    "app": "node index.js"
+  },
+  "author": "Rafael Juliao Bessega",
+  "license": "ISC"
+}

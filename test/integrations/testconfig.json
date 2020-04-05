@@ -1,0 +1,9 @@
+{
+    "extension": ["js"],
+    "file": "./integrations/testconfig.js",
+    "spec": "./integrations/**/*.spec.js",
+    "timeout": 10000,
+    "color": true,
+    "ui" : "bdd",
+    "reporter": "spec"
+}
