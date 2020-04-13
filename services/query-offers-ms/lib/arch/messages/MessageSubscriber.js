@@ -4,9 +4,10 @@ module.exports = ({
     eventHandlers,
     messageBroker,
 }) => ({
-    subscribeToEvents: async () => {
-        for (let { event, handler } of eventHandlers) {
+    subscribeToEvents: async function () {
+        for (const { event, handler } of eventHandlers) {
             await messageBroker.subscribe(config.events[event], async message => {
+                logger.info(`[EVENT] Received: ${event}` )
                 try {
                     await handler(message.getBody())
                     message.complete()

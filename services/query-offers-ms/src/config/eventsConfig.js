@@ -12,31 +12,31 @@ module.exports = messageBroker => ({
     [Tech.RabbitMQ]: {
         [Events.OFFER_CREATED]: {
             exchange: 'offer-created',
-            queue: 'query-offers-ms',
+            queue: 'offer-created_query-offers-ms',
         },
 
         [Events.OFFER_UPDATED]: {
             exchange: 'offer-update',
-            queue: 'query-offers-ms',
+            queue: 'offer-update_query-offers-ms',
         },
 
         [Events.OFFER_STATUS_CHANGED]: {
             exchange: 'offer-status-changed',
-            queue: 'query-offers-ms',
+            queue: 'offer-status-changed_query-offers-ms',
         },
         [Events.PRODUCT_CREATED]: {
             exchange: 'product-created',
-            queue: 'query-offers-ms',
+            queue: 'product-created_query-offers-ms',
         },
 
         [Events.PRODUCT_UPDATED]: {
             exchange: 'product-update',
-            queue: 'query-offers-ms',
+            queue: 'product-update_query-offers-ms',
         },
 
         [Events.PRODUCT_STATUS_CHANGED]: {
             exchange: 'product-status-changed',
-            queue: 'query-offers-ms',
+            queue: 'product-status-changed_query-offers-ms',
         },
     }
 })[messageBroker]

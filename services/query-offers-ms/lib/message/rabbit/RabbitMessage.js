@@ -1,5 +1,5 @@
 module.exports = (channel, message) => {
-    const body = JSON.parse(msg.content.toString())
+    const body = JSON.parse(message.content.toString())
     return {
         getId: () => message.id,
         getBody: () => body,

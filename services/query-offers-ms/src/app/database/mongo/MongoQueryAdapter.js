@@ -1,7 +1,39 @@
 module.exports = ({ offersPersistence }) => ({
 
-    getOfferById: async offer_id => {
-        await offersPersistence.aggregate(offer_id)
+    getOfferById: async offerId => {
+        const pipeline = [
+            {
+                '$match': { _id: offerId }
+            },
+            {
+                '$unwind': { path: '$items' }
+            },
+            {
+                '$lookup':
+                    {
+                        from: 'products',
+                        localField: 'items.product._id',
+                        foreignField: '_id',
+                        as: 'items.product'
+                    }
+            },
+            {
+                '$addFields':
+                    {
+                        'items.product':{'$arrayElemAt':['$items.product',0]}
+                    }
+            },
+            /*
+            {
+                '$group':
+                    {
+                        _id : offerId,
+
+                    }
+            }*/
+        ]
+        const results = await offersPersistence.aggregate(pipeline)
+        return results
     }
 
     /*searchOffers: async ({

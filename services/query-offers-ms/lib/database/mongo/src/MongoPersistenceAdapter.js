@@ -22,9 +22,11 @@ module.exports = ({ collectionName }) => ({ database }) => {
             const result = await collection.find(query) 
             return result
         },
-        aggregate: async aggregation => {
-            const result = await collection.aggregate(aggregation)
-            return result
+        aggregate: async pipeline => {
+            const cursor = await collection.aggregate(pipeline)
+            const docs = []
+            await cursor.forEach(result => docs.push(result))
+            return docs
         }
     }
 }
