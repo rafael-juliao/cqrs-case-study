@@ -1,7 +1,7 @@
-module.exports = ({ offersPersistenceAdapter }) => ({
+module.exports = ({ offersPersistence }) => ({
 
     getOfferById: async offer_id => {
-        await offersPersistenceAdapter.aggregate(offer_id)
+        await offersPersistence.aggregate(offer_id)
     }
 
     /*searchOffers: async ({

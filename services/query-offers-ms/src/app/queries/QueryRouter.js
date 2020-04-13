@@ -1,16 +1,17 @@
-const controller = require('./Controller')
-module.exports = [
+const Joi = require('@hapi/joi')
+
+module.exports = ({ queryController }) => [
     {
-        route: '/offers/:offerId',
-        handler: controller.getOfferById,
+        path: '/offers/:offerId',
+        handler: queryController.getOfferById,
         schema: {
             params: Joi.object().keys({
                 offerId: Joi.string().required()
             })
         }
     },
-    {
-        route: '/offers',
+    /*{
+        path: '/offers',
         handler: controller.searchOffers,
         schema: {
             query: Joi.object().keys({
@@ -22,5 +23,5 @@ module.exports = [
                 limit: Joi.number().optional()
             })
         }
-    }
+    }*/
 ]

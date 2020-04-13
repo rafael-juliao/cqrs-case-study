@@ -1,26 +1,28 @@
-export default ({ domainViewModel }) => [
+const Events = require('./DomainEvents')
+
+module.exports = ({ dataViewModel }) => [
     {
-        event: OFFER_CREATED,
-        handler: domainViewModel.createOffer,
+        event: Events.OFFER_CREATED,
+        handler: dataViewModel.createOffer,
     },
     {
-        event: OFFER_UPDATED,
-        handler: domainViewModel.updateOffer,
+        event: Events.OFFER_UPDATED,
+        handler: dataViewModel.updateOffer,
     },
     {
-        event: OFFER_STATUS_CHANGED,
-        handler: domainViewModel.offerStatusChanged,
+        event: Events.OFFER_STATUS_CHANGED,
+        handler: dataViewModel.offerStatusChanged,
     },
     {
-        event: PRODUCT_CREATED,
-        handler: domainViewModel.createProduct,
+        event: Events.PRODUCT_CREATED,
+        handler: dataViewModel.createProduct,
     },
     {
-        event: PRODUCT_UPDATED,
-        handler: domainViewModel.updateProduct,
+        event: Events.PRODUCT_UPDATED,
+        handler: dataViewModel.updateProduct,
     },
     {
-        event: PRODUCT_STATUS_CHANGED,
-        handler: domainViewModel.productStatusChanged,
+        event: Events.PRODUCT_STATUS_CHANGED,
+        handler: dataViewModel.productStatusChanged,
     },
 ]

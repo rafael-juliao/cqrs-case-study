@@ -1,10 +1,8 @@
-export default ({ offersPersistenceAdapter }) => ({
-    createOffer: offer => await offersPersistenceAdapter.create(offer),
-    updateOffer: offer => await offersPersistenceAdapter.update(offer._id, offer),
-    /*offerStatusChanged: offer => {
-        if (offer.status == 'active')
-            await offersPersistenceAdapter.create(offer.offer_id, offer)
-        else
-            await offersPersistenceAdapter.delete(offer.offer_id)
-    },*/
+module.exports = ({ offersPersistence, productsPersistence }) =>({
+    createOffer: async offer => await offersPersistence.create(offer),
+    updateOffer: async offer => await offersPersistence.update(offer._id, offer),
+    offerStatusChanged: async offer => await offersPersistence.update(offer._id, offer),
+    createProduct: async product => await productsPersistence.create(product),
+    updateProduct: async product => await productsPersistence.update(product._id, product),
+    productStatusChanged: async product => await productsPersistence.update(product._id, product),
 })
