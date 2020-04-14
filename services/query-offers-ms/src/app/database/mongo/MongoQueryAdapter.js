@@ -23,17 +23,29 @@ module.exports = ({ offersPersistence }) => ({
                         'items.product':{'$arrayElemAt':['$items.product',0]}
                     }
             },
-            /*
             {
                 '$group':
                     {
-                        _id : offerId,
-
+                        _id : "$_id",
+                        object: { 
+                            '$first': "$$ROOT"
+                        },
+                        items: {
+                            '$push': '$items'
+                        }
                     }
-            }*/
+            },
+            {
+                '$addFields': {
+                    'object.items': '$items'
+                }
+            },
+            { 
+                '$replaceRoot': { newRoot: '$object' }
+            }
         ]
-        const results = await offersPersistence.aggregate(pipeline)
-        return results
+        const [offer] = await offersPersistence.aggregate(pipeline)
+        return offer
     }
 
     /*searchOffers: async ({
