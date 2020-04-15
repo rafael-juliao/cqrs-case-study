@@ -7,9 +7,8 @@ module.exports = {
     insertOffers: async function ({ offersConfig: { count = 1, products, data = {} }, productsConfig }) {
         const offers = []
         while (count--) {
-            if(!products)
-                products = await productsService.insertProducts(productsConfig)
-            const generatedOffer = offerDataFaker({ products, ...data })
+            const createdProducts = products || await productsService.insertProducts(productsConfig)
+            const generatedOffer = offerDataFaker({ products: createdProducts, ...data })
             const createdOffer = await offersClient.create(generatedOffer)
             offers.push(createdOffer)            
         }

@@ -26,11 +26,10 @@ export default {
         }
 
         Object.assign(this, {
-            publish: async (queue, object) => {
-                const message = JSON.stringify(object)
-                await channel.assertQueue(queue)
-                await channel.sendToQueue(queue, Buffer.from(message))
-                logger.info(`[RABBIT] Message sent | queue: ${queue} | data : ${message}`)
+            publish: async (topic, object) => {
+                channel.assertExchange(topic, 'fanout', { durable: true });
+                channel.publish(topic, '', Buffer.from(JSON.stringify(object)), { persistent: true })
+                logger.info(`[RABBIT] Message sent | topic: ${topic}`)
             }
         })
         

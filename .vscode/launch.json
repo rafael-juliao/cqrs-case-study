@@ -32,7 +32,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "scripts",
+            "name": "seed",
             "skipFiles": [
                 "<node_internals>/**"
             ],

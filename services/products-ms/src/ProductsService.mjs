@@ -6,14 +6,14 @@ export default {
 
     create: async product => {
         const createdProduct = await productsPersistence.create(product)
-        await eventPublisher.publish(ProductEvents.OFFER_CREATED, createdProduct)
+        await eventPublisher.publish(ProductEvents.PRODUCT_CREATED, createdProduct)
         return createdProduct
     },
 
     changeStatus: async (productId, status) => {
         const product = await productsPersistence.update(productId, {status})
         if (!product) throw new Error(`404|Product ${productId} not found`)
-        await eventPublisher.publish(ProductEvents.OFFER_STATUS_CHANGED, product)
+        await eventPublisher.publish(ProductEvents.PRODUCT_STATUS_CHANGED, product)
         return product
     }
 
