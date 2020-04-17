@@ -1,14 +1,20 @@
-import logger from '../.arch/src/Logger.mjs'
-import mongoDB from  '../.arch/src/MongoDB.mjs'
-import rabbitMQ from '../.arch/src/RabbitMQ.mjs'
-import httpServer from '../.arch/src/HttpServer.mjs'
+import arch from '@rafael-juliao/lib-microservice'
+
+const {
+    Logger: logger,
+    MongoDB: database,
+    RabbitMQ: messageBroker,
+    HttpServer: requestServer,
+} = arch
+
 import offersRouter from './src/OffersRouter.mjs'
+import config from './src/Config.mjs'
 
 (async () => {
     logger.info('[APP] Application Starting...')
-    await mongoDB.connect()
-    await rabbitMQ.connect()
-    await httpServer.start([
+    await database.connect(config)
+    await messageBroker.connect(config)
+    await requestServer.start(config, [
         offersRouter()
     ])
     logger.info('[APP] Application Running')

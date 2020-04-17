@@ -1,4 +1,6 @@
-import eventPublisher from '../../.arch/src/RabbitMQ.mjs'
+import arch from '@rafael-juliao/lib-microservice'
+const { RabbitMQ: eventPublisher } = arch
+
 import offersPersistence from './OffersPersistence.mjs'
 import OfferEvents from './OfferEvents.mjs'
 import productsProxy from './ProductsProxy.mjs'

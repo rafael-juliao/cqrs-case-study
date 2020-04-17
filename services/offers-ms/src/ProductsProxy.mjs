@@ -1,5 +1,6 @@
-import Config from '../../.arch/src/Config.mjs'
-import RestClient from '../../.arch/src/RestClient.mjs'
+import arch from '@rafael-juliao/lib-microservice'
+const { RestClient } = arch
+import Config from './Config.mjs'
 
 export default {
     getProductById: async productId =>

@@ -46,7 +46,6 @@ services:
       - app-network
     volumes:
       - ../services/offers-ms:/usr/src/service/offers-ms
-      - ../services/.arch:/usr/src/service/.arch
       - ./wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
     working_dir: /usr/src/service/offers-ms
     depends_on:
@@ -67,7 +66,6 @@ services:
       - app-network
     volumes:
       - ../services/products-ms:/usr/src/service/products-ms
-      - ../services/.arch:/usr/src/service/.arch
       - ./wait-for-it.sh:/usr/src/service/products-ms/wait.sh
     working_dir: /usr/src/service/products-ms
     depends_on:
