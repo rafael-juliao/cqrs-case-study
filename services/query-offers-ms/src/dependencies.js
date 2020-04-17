@@ -5,13 +5,18 @@ const { createContainer, asFunction, asValue, InjectionMode } = require('awilix'
 
 const dependencies = createContainer()
 
+const {
+    Logger,
+    MessageSubscriber,
+    RequestServer
+} = require('@rafael-juliao/lib-cqrs-service')
+
 dependencies
     .register({
         api: asFunction(require('./app/Api')),
-        // dependencies: asValue(dependencies),
-        logger: asFunction(require('../lib/arch/log/Logger')),
-        messageSubscriber: asFunction(require('../lib/arch/messages/MessageSubscriber')),
-        requestServer: asFunction(require('../lib/arch/requests/http/HttpServer')),
+        logger: asFunction(Logger),
+        messageSubscriber: asFunction(MessageSubscriber),
+        requestServer: asFunction(RequestServer),
         config: asValue(config),
     })
 
@@ -27,8 +32,9 @@ dependencies
 // Database Configuration
 /////////////////////////////////////////
 if (config.database === Tech.MongoDB) {
+    const { MongoDB } = require('@rafael-juliao/lib-cqrs-mongo')
     dependencies.register({
-        database: asFunction(require('../lib/database/mongo/src/MongoDB')).singleton(),
+        database: asFunction(MongoDB).singleton(),
         queryAdapter: asFunction(require('./app/database/mongo/MongoQueryAdapter')),
         offersPersistence: asFunction(require('./app/database/mongo/MongoOffersPersistenceAdapter')),
         productsPersistence: asFunction(require('./app/database/mongo/MongoProductsPersistenceAdapter')),
@@ -50,7 +56,7 @@ if (config.database === Tech.RedisDB) {
 
 if (config.messageBroker === Tech.RabbitMQ) {
     dependencies.register({
-        messageBroker: asFunction(require('../lib/message/rabbit/RabbitMQ')).singleton(),
+        messageBroker: asFunction(require('@rafael-juliao/lib-cqrs-rabbitmq')).singleton(),
     })
 }
 
