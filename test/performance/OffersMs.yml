@@ -1,0 +1,10 @@
+config:
+  target: 'http://localhost:3001/api/offers'
+  phases:
+    - duration: 5
+      arrivalRate: 10
+scenarios:
+  - flow:
+    - get:
+        url: "/5e93cbe18ba3500032ef81a7"
+        name: "get offer by id"
