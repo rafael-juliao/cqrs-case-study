@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:int": "mocha --config ./integrations/testconfig.json",
+    "int:test": "mocha --config ./integrations/testconfig.json",
+    "perf:setup": "npm install -g artillery",
+    "perf:test": "./node_modules/artillery/bin/artillery run performance/GetById.yml",
     "seed": "node ./data/scripts/index.js"
   },
   "author": "Rafael Juliao Bessega",
   "license": "ISC",
   "dependencies": {
+    "artillery": "^1.6.0",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "chance": "^1.1.4",

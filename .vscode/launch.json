@@ -29,6 +29,19 @@
                 "--exit"
             ]
         },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Performance Tests",
+            "program": "${workspaceFolder}/test/node_modules/mocha/bin/_mocha",
+            "cwd": "${workspaceFolder}/test",
+            "args": [
+                "--config",
+                "./performance/testconfig.json",
+                "--exit"
+            ]
+        },
         {
             "type": "node",
             "request": "launch",
