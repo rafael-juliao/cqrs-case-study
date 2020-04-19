@@ -45,11 +45,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "seed",
+            "name": "Manual Seed",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/test/data/scripts/index.js"
+            "program": "${workspaceFolder}/test/data/scripts/manualSeed.js"
         }
     ]
 }

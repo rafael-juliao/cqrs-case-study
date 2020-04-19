@@ -9,7 +9,7 @@
     "perf:test": "npm run perf:test:offers-ms && npm run perf:test:query-offers-ms",
     "perf:test:offers-ms": "echo \"OFFERS-MS\n\" && ./node_modules/artillery/bin/artillery run performance/OffersMs.yml",
     "perf:test:query-offers-ms": "echo \"QUERY-OFFERS-MS\n\" && ./node_modules/artillery/bin/artillery run performance/QueryOffersMs.yml",
-    "seed": "node ./data/scripts/index.js"
+    "seed": "node ./data/scripts/manualSeed.js"
   },
   "author": "Rafael Juliao Bessega",
   "license": "ISC",
