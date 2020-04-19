@@ -19,8 +19,8 @@ module.exports = ({ queryController }) => [
                 status: Joi.string().valid('active', 'created').optional(),
                 min_price: Joi.number().optional(),
                 max_price: Joi.number().optional(),
-                page: Joi.number().optional(),
-                limit: Joi.number().optional()
+                page: Joi.number().integer().optional(),
+                limit: Joi.number().integer().optional()
             })
         }
     }

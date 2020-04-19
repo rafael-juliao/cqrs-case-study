@@ -55,6 +55,9 @@ module.exports = ({ offersPersistence }) => ({
         limit = 50,
     }) => {
 
+        page = Number(page)
+        limit = Number(limit)
+
         const pipeline = []
 
         status && pipeline.push({
@@ -106,8 +109,25 @@ module.exports = ({ offersPersistence }) => ({
             '$match': { 'items' :{ '$elemMatch': { 'product.name': { $regex: new RegExp(search) } } } }
         }) 
 
-        const result = await offersPersistence.aggregate(pipeline)
-        return result
+        pipeline.push(
+            { 
+                '$facet': {
+                    count:  [{ '$count': "total" }],
+                    offers: [
+                        { '$skip': page*limit },
+                        { '$limit': limit }
+                    ]
+                }
+            }
+        )
+
+        const [{ count: [counter], offers }] = await offersPersistence.aggregate(pipeline)
+        return {
+            page,
+            limit,
+            total: counter ? counter.total : 0,
+            offers
+        }
     }
 
 })
