@@ -17,7 +17,7 @@
     "@hapi/joi": "^17.1.1",
     "@rafael-juliao/lib-cqrs-mongo": "^1.0.0",
     "@rafael-juliao/lib-cqrs-rabbitmq": "^1.0.0",
-    "@rafael-juliao/lib-cqrs-service": "^1.0.0",
+    "@rafael-juliao/lib-cqrs-service": "^1.0.1",
     "awilix": "^4.2.5",
     "dotenv": "^8.2.0"
   }
