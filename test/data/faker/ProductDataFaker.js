@@ -4,5 +4,5 @@ module.exports = ({
     name
 } = {}) => ({
     name: name || dataFaker.name(),
-    price: dataFaker.price(),
+    brand: dataFaker.company(),
 })

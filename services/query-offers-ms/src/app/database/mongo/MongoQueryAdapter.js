@@ -106,7 +106,12 @@ module.exports = ({ offersPersistence }) => ({
         ])
 
         search && pipeline.push({
-            '$match': { 'items' :{ '$elemMatch': { 'product.name': { $regex: new RegExp(search) } } } }
+            '$match': {
+                '$or': [
+                    { items: { '$elemMatch': { 'product.name': { $regex: new RegExp(search, 'i') } } } }, 
+                    { items: { '$elemMatch': { 'product.brand': { $regex: new RegExp(search, 'i') } } } }
+                ]
+            }
         }) 
 
         pipeline.push(
