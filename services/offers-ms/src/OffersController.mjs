@@ -31,6 +31,15 @@ export default {
         } catch (err) {
             next(err)
         }
+    },
+
+    searchOffers: async (req, res, next) => {
+        try {
+            const result = await offersService.searchOffers(req.query)
+            res.status(200).json(result).end()
+        } catch (err) {
+            next(err)
+        }
     }
     
 }

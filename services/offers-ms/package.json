@@ -9,6 +9,6 @@
   "author": "Rafael Juliao Bessega",
   "license": "ISC",
   "dependencies": {
-    "@rafael-juliao/lib-microservice": "^1.0.1"
+    "@rafael-juliao/lib-microservice": "^1.1.0"
   }
 }

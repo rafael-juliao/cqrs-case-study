@@ -26,6 +26,38 @@ export default {
         for (let item of offer.items )
             item.product = await productsProxy.getProductById(item.product._id)
         return offer
+    },
+
+    searchOffers: async ({
+        search,
+        status,
+    }) => {
+        const offers = []
+        const memoryLimit = 100
+        const total = await offersPersistence.count()
+        const iterations = Math.ceil(total/memoryLimit)
+
+        const fetchAllProducts = async offer => {
+            for(let item of offer.items)
+                item.product = await productsProxy.getProductById(item.product._id)
+        }
+
+        for (let page = 0; page < iterations; page++) {
+            let possibleOffers = await offersPersistence.find( status? { status } : {}, page*memoryLimit, memoryLimit);
+
+            await Promise.all(possibleOffers.map(fetchAllProducts))
+
+            if (search) {
+                search = new RegExp(search, 'i')
+                possibleOffers = possibleOffers.filter(
+                    ({ items }) => items.some(
+                        ({ product: { name, brand } }) => name.match(search) || brand.match(search)
+                    )
+                )
+            }
+            offers.push(...possibleOffers)
+        }
+        return offers
     }
 
 }
