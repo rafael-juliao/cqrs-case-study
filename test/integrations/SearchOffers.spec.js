@@ -1,7 +1,7 @@
 const { OffersService, OffersClient, QueryOffersClient } = require('../data')
 const { expect } = require('chai')
 
-describe('Feature: Get offer by id', () => {
+describe('Feature: Search offers by text and status', () => {
 
     describe('Given that I have one offer in the database', () => {
 
