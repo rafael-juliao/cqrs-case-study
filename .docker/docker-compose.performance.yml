@@ -3,10 +3,28 @@ version: '3'
 networks: 
     app-network:
       driver: bridge
-
+  
 services:
+      
+  #############################################
+  ## Delay: Pumba
+  #############################################
+  delay:
+    image: gaiaadm/pumba
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - "offers-ms"
+      - "products-ms"
+      - "query-offers-ms"
+    command: "--log-level=debug --interval=60s netem --tc-image=gaiadocker/iproute2 --duration 59s delay --time=50 --jitter=0 re2:test-performance"
+    networks:
+      - app-network
 
-# RabbitMQ
+
+  #############################################
+  ## Message Broker: RabbitMQ
+  #############################################
   rabbitmq:
     image: 'rabbitmq:3.6-management-alpine'
     ports:
@@ -21,7 +39,19 @@ services:
     networks:
       - app-network
 
-# MongoDB Access
+  #############################################
+  ## Database: MongoDb
+  #############################################
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    networks:
+      - app-network
+
+  # Mongo admin at localhost:8081
   mongo-express:
     image: mongo-express
     ports:
@@ -34,37 +64,11 @@ services:
       - app-network
 
 
-# MongoDB
-  mongodb:
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./data/db:/data/db
-    networks:
-      - app-network
+  #############################################
+  ## Microservices
+  #############################################
 
-# micro-services
-  offers-ms:
-    image: node:13
-    networks:
-      - app-network
-    volumes:
-      - ../services/offers-ms:/usr/src/service/offers-ms
-      - ./wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
-    working_dir: /usr/src/service/offers-ms
-    depends_on:
-      - "mongodb"
-      - "rabbitmq"
-    environment:
-      MONGO_URL: 'mongodb'
-      RABBIT_URL: 'rabbitmq'
-      MONGO_DATABASE: 'offers'
-      PRODUCTS_URL: 'products-ms'
-    command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
-    ports:
-      - 3001:3000
-
+  # Products
   products-ms:
     image: node:13
     networks:
@@ -84,7 +88,28 @@ services:
     ports:
       - 3000:3000
 
-
+  # Offers
+  offers-ms:
+    image: node:13
+    networks:
+      - app-network
+    volumes:
+      - ../services/offers-ms:/usr/src/service/offers-ms
+      - ./wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
+    working_dir: /usr/src/service/offers-ms
+    depends_on:
+      - "mongodb"
+      - "rabbitmq"
+    environment:
+      MONGO_URL: 'mongodb'
+      RABBIT_URL: 'rabbitmq'
+      MONGO_DATABASE: 'offers'
+      PRODUCTS_URL: 'products-ms'
+    command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run app"
+    ports:
+      - 3001:3000
+  
+  # Query Offers
   query-offers-ms:
     image: node:13
     networks:
