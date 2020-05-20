@@ -17,7 +17,8 @@ services:
       - "offers-ms"
       - "products-ms"
       - "query-offers-ms"
-    command: "--log-level=debug --interval=60s netem --tc-image=gaiadocker/iproute2 --duration 59s delay --time=50 --jitter=0 re2:test-performance"
+
+    command: "--log-level debug --interval 3600s netem --tc-image=gaiadocker/iproute2 --duration 3599s delay --time 10 --correlation 0 --jitter 0 re2:test-performance"
     networks:
       - app-network
 
@@ -75,7 +76,7 @@ services:
       - app-network
     volumes:
       - ../services/products-ms:/usr/src/service/products-ms
-      - ./wait-for-it.sh:/usr/src/service/products-ms/wait.sh
+      - ./dependencies/wait-for-it.sh:/usr/src/service/products-ms/wait.sh
     working_dir: /usr/src/service/products-ms
     depends_on:
       - "mongodb"
@@ -95,7 +96,7 @@ services:
       - app-network
     volumes:
       - ../services/offers-ms:/usr/src/service/offers-ms
-      - ./wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
+      - ./dependencies/wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
     working_dir: /usr/src/service/offers-ms
     depends_on:
       - "mongodb"
@@ -116,7 +117,7 @@ services:
       - app-network
     volumes:
       - ../services/query-offers-ms:/usr/src/service/query-offers-ms
-      - ./wait-for-it.sh:/usr/src/service/query-offers-ms/wait.sh
+      - ./dependencies/wait-for-it.sh:/usr/src/service/query-offers-ms/wait.sh
     working_dir: /usr/src/service/query-offers-ms
     depends_on:
       - "mongodb"
