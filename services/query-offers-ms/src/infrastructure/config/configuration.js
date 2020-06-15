@@ -8,11 +8,11 @@ module.exports = {
     databaseUrl: process.env.DATABASE_URL,
     databasePort: process.env.DATABASE_PORT,
 
-    // Message Broker Config
-    messageBroker: process.env.MESSAGE_BROKER,
-    messageBrokerUrl: process.env.MESSAGE_BROKER_URL,
-    messageBrokerPort: process.env.MESSAGE_BROKER_PORT,
+    // Message Channel Config
+    messageChannel: process.env.MESSAGE_CHANNEL,
+    messageChannelUrl: process.env.MESSAGE_CHANNEL_URL,
+    messageChannelPort: process.env.MESSAGE_CHANNEL_PORT,
 
     // Events Config
-    events: require('./eventsConfig')(process.env.MESSAGE_BROKER),
+    getEvent: event => require('./events')(process.env.MESSAGE_CHANNEL)[event],
 }
