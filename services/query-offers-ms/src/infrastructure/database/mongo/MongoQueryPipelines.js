@@ -1,58 +1,54 @@
-module.exports = ({ offersPersistence }) => ({
-
-    getOfferById: async offerId => {
-        const pipeline = [
-            {
-                '$match': { _id: offerId }
-            },
-            {
-                '$unwind': { path: '$items' }
-            },
-            {
-                '$lookup':
-                    {
-                        from: 'products',
-                        localField: 'items.product._id',
-                        foreignField: '_id',
-                        as: 'items.product'
-                    }
-            },
-            {
-                '$addFields':
-                    {
-                        'items.product':{'$arrayElemAt':['$items.product',0]}
-                    }
-            },
-            {
-                '$group':
-                    {
-                        _id : "$_id",
-                        object: { 
-                            '$first': "$$ROOT"
-                        },
-                        items: {
-                            '$push': '$items'
-                        }
-                    }
-            },
-            {
-                '$addFields': {
-                    'object.items': '$items'
+module.exports = ({
+    getOfferById: offerId => [
+        {
+            '$match': { _id: offerId }
+        },
+        {
+            '$unwind': { path: '$items' }
+        },
+        {
+            '$lookup':
+                {
+                    from: 'products',
+                    localField: 'items.product._id',
+                    foreignField: '_id',
+                    as: 'items.product'
                 }
-            },
-            { 
-                '$replaceRoot': { newRoot: '$object' }
+        },
+        {
+            '$addFields':
+                {
+                    'items.product':{'$arrayElemAt':['$items.product',0]}
+                }
+        },
+        {
+            '$group':
+                {
+                    _id : "$_id",
+                    object: { 
+                        '$first': "$$ROOT"
+                    },
+                    items: {
+                        '$push': '$items'
+                    }
+                }
+        },
+        {
+            '$addFields': {
+                'object.items': '$items'
             }
-        ]
-        const [offer] = await offersPersistence.aggregate(pipeline)
-        return offer
-    },
+        },
+        { 
+            '$replaceRoot': { newRoot: '$object' }
+        }
+    ],
 
-    searchOffers: async ({
+
+    searchOffers: ({
         search,
         status,
-        page = 0,
-        limit = 50,
+        page,
+        limit,
     }) => {
 
         page = Number(page)
@@ -125,14 +121,8 @@ module.exports = ({ offersPersistence }) => ({
                 }
             }
         )
-
-        const [{ count: [counter], offers }] = await offersPersistence.aggregate(pipeline)
-        return {
-            page,
-            limit,
-            total: counter ? counter.total : 0,
-            offers
-        }
+        
+        return pipeline
     }
 
 })

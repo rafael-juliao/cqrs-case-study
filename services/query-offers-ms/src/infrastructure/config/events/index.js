@@ -1,7 +1,7 @@
-const Events = require('../app/events/DomainEvents')
-const Tech = require('./tech')
+const Events = require('../../../app/events/DomainEvents')
+const Tech = require('../tech')
 
-module.exports = messageBroker => ({
+module.exports = messageChannelInterface => ({
     [Tech.AzureServiceBus]: {
         [Events.OFFER_CREATED]: {
             connectionString: '',
@@ -39,4 +39,4 @@ module.exports = messageBroker => ({
             queue: 'product-status-changed_query-offers-ms',
         },
     }
-})[messageBroker]
+})[messageChannelInterface]
