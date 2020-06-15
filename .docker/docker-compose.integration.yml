@@ -59,7 +59,7 @@ services:
       - app-network
     volumes:
       - ../services/products-ms:/usr/src/service/products-ms
-      - ./wait-for-it.sh:/usr/src/service/products-ms/wait.sh
+      - ./dependencies/wait-for-it.sh:/usr/src/service/products-ms/wait.sh
     working_dir: /usr/src/service/products-ms
     depends_on:
       - "mongodb"
@@ -79,7 +79,7 @@ services:
       - app-network
     volumes:
       - ../services/offers-ms:/usr/src/service/offers-ms
-      - ./wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
+      - ./dependencies/wait-for-it.sh:/usr/src/service/offers-ms/wait.sh
     working_dir: /usr/src/service/offers-ms
     depends_on:
       - "mongodb"
@@ -100,7 +100,7 @@ services:
       - app-network
     volumes:
       - ../services/query-offers-ms:/usr/src/service/query-offers-ms
-      - ./wait-for-it.sh:/usr/src/service/query-offers-ms/wait.sh
+      - ./dependencies/wait-for-it.sh:/usr/src/service/query-offers-ms/wait.sh
     working_dir: /usr/src/service/query-offers-ms
     depends_on:
       - "mongodb"
@@ -108,7 +108,7 @@ services:
     environment:
       APP_PORT: "3000"
       DATABASE_URL: "mongodb"
-      MESSAGE_BROKER_URL: "rabbitmq"
+      MESSAGE_CHANNEL_URL: "rabbitmq"
     command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run start"
     ports:
       - 3002:3000
