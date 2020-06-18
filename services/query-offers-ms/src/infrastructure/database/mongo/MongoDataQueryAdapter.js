@@ -1,7 +1,7 @@
 const pipelines = require('./MongoQueryPipelines')
 
-module.exports = ({ mongoModel }) => {
-    const offersModel = mongoModel.create('offers')
+module.exports = ({ mongoModelFactory }) => {
+    const offersModel = mongoModelFactory.create('offers')
     return {
         getOfferById: async offerId => {
             const pipeline = pipelines.getOfferById(offerId)

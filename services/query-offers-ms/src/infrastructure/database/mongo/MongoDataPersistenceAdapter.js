@@ -1,6 +1,6 @@
-module.exports = ({ mongoModel }) => {
-    const offersModel = mongoModel.create('offers')
-    const productsModel = mongoModel.create('products')
+module.exports = ({ mongoModelFactory }) => {
+    const offersModel = mongoModelFactory.create('offers')
+    const productsModel = mongoModelFactory.create('products')
 
     return {
         createOffer: async offer => offersModel.create(offer),

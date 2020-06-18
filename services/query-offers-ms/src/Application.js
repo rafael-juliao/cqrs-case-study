@@ -1,21 +1,24 @@
 module.exports = ({
     logger,
     database,
-    messageChannelInterface,
+    messageBroker,
     eventDataModelSubscriptor,
-    requestServer,
+    queryServer,
 }) => ({
     start: async () => {
-        logger.info('[APP] Started...')
+        logger.info('[APP] Starting...')
         await database.connect()
-        await messageChannelInterface.connect()
+        await messageBroker.connect()
         await eventDataModelSubscriptor.subscribe()
-        await requestServer.start()
+        await queryServer.start()
+        logger.info('[APP] Started')
     },
     stop: async () => {
-        logger.info('[APP] Stopped...')
-        await requestServer.stop()
-        await messageChannelInterface.disconnect()
+        logger.info('[APP] Stopping...')
+        await queryServer.stop()
+        await eventDataModelSubscriptor.unsubscribe()
+        await messageBroker.disconnect()
         await database.disconnect()
+        logger.info('[APP] Stopped')
     }
 })

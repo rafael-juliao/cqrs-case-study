@@ -1,14 +1,14 @@
-const QuerySchemas = require('./QuerySchemas')
+const QueryValidator = require('./QueryValidator')
 
 module.exports = ({ queryController }) => [
     {
         path: '/offers/:offerId',
         controller: queryController.getOfferById,
-        schema: QuerySchemas.getOfferById
+        validator: QueryValidator.getOfferById
     },
     {
         path: '/offers',
         controller: queryController.searchOffers,
-        schema: QuerySchemas.searchOffers
+        validator: QueryValidator.searchOffers
     }
 ]
