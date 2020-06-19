@@ -3,6 +3,7 @@ const result = dotenv.config({ path: `.env` })
 if (result.error) throw new Error(`Failed to load config`)
 
 module.exports = ({
+    serviceName: 'query-offers-ms',
     // Http Application Config
     httpPort: process.env.APP_PORT,
 

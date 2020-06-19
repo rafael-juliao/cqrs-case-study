@@ -14,7 +14,8 @@ module.exports = ({ logger, messageBroker, configuration }) => ({
     },
 
     subscribe: async function(event, handler) {
-        const { topic: exchange, queue } = configuration.events[event]
+        const { topic: exchange } = configuration.events[event]
+        const queue = `${exchange}_${configuration.serviceName}`
         const subscriberChannel = await messageBroker.createChannel()
         subscriberChannel.assertExchange(exchange, 'fanout', { durable: true });
         const { queue: subscriberQueue } = await subscriberChannel.assertQueue(queue)
