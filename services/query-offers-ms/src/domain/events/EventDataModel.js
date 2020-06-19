@@ -1,28 +1,34 @@
-const Events = require('./DomainEvents')
+const DomainEvents = require('./DomainEvents')
 
-module.exports = ({ dataPersistenceInterface }) => [
+module.exports = ({ dataPersistence }) => [
     {
-        event: Events.OFFER_CREATED,
-        operation: async offer => await dataPersistenceInterface.createOffer(offer),
+        event: DomainEvents.OFFER_CREATED,
+        operation: async offer =>
+            await dataPersistence.createOffer(offer),
     },
     {
-        event: Events.OFFER_UPDATED,
-        operation: async offer => await dataPersistenceInterface.updateOffer(offer._id, offer),
+        event: DomainEvents.OFFER_UPDATED,
+        operation: async offer =>
+            await dataPersistence.updateOffer(offer._id, offer),
     },
     {
-        event: Events.OFFER_STATUS_CHANGED,
-        operation: async offer => await dataPersistenceInterface.updateOffer(offer._id, offer),
+        event: DomainEvents.OFFER_STATUS_CHANGED,
+        operation: async offer =>
+            await dataPersistence.updateOffer(offer._id, offer),
     },
     {
-        event: Events.PRODUCT_CREATED,
-        operation: async product => await dataPersistenceInterface.createProduct(product),
+        event: DomainEvents.PRODUCT_CREATED,
+        operation: async product =>
+            await dataPersistence.createProduct(product),
     },
     {
-        event: Events.PRODUCT_UPDATED,
-        operation: async product => await dataPersistenceInterface.updateProduct(product._id, product),
+        event: DomainEvents.PRODUCT_UPDATED,
+        operation: async product =>
+            await dataPersistence.updateProduct(product._id, product),
     },
     {
-        event: Events.PRODUCT_STATUS_CHANGED,
-        operation: async product => await dataPersistenceInterface.updateProduct(product._id, product),
+        event: DomainEvents.PRODUCT_STATUS_CHANGED,
+        operation: async product =>
+            await dataPersistence.updateProduct(product._id, product),
     },
 ]

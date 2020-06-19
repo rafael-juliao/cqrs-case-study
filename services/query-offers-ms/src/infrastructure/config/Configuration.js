@@ -12,8 +12,8 @@ module.exports = ({
     databasePort: process.env.DATABASE_PORT,
 
     // Message Channel Config
-    messageChannelUrl: process.env.MESSAGE_CHANNEL_URL,
-    messageChannelPort: process.env.MESSAGE_CHANNEL_PORT,
+    messageBrokerUrl: process.env.MESSAGE_BROKER_URL,
+    messageBrokerPort: process.env.MESSAGE_BROKER_PORT,
 
     // Events Config
     events: require('./EventsConfiguration'),

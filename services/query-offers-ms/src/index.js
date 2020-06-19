@@ -20,4 +20,3 @@ dependencies.loadModules(
 )
 
 module.exports = dependencies.build(require('./Application'))
-

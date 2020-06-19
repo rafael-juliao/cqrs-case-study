@@ -27,5 +27,6 @@ module.exports = ({ logger, configuration }) => ({
             throw new Error('Failed to connect to mongodb', err)
         }
         logger.info('[MONGO] Connected to mongo database')
-    }
+    },
+    disconnect: () => {},
 })

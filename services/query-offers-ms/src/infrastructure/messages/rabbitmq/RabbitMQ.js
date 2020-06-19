@@ -1,6 +1,6 @@
 const amqpClient = require('amqplib')
 
-const buildRabbitUrl = configuration => `amqp://${configuration.messageChannelUrl}:${configuration.messageChannelPort}`
+const buildRabbitUrl = configuration => `amqp://${configuration.messageBrokerUrl}:${configuration.messageBrokerPort}`
 
 module.exports = ({ configuration, logger }) => ({
     connect: async function () {
@@ -32,6 +32,7 @@ module.exports = ({ configuration, logger }) => ({
         
         })
     },
+    disconnect: () => {}
 
 
 })

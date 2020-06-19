@@ -1,4 +1,7 @@
-module.exports = ({ logger, messageChannel }) => ({
+module.exports = ({
+    logger,
+    messageChannel
+}) => ({
 
     subscribe: async (event, operation) => {
         const messageListener = async message => {

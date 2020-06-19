@@ -1,6 +1,8 @@
 const RabbitMessage = require('./RabbitMessage')
 
 module.exports = ({ logger, messageBroker, configuration }) => ({
+
+    subscribers: {},
     publish: async function ({ topic }, object) {
         if (!this.publisherChannel)
             Object.assign(this, {
@@ -12,16 +14,21 @@ module.exports = ({ logger, messageBroker, configuration }) => ({
     },
 
     subscribe: async function(event, handler) {
-        const { exchange, queue } = configuration.events[event]
+        const { topic: exchange, queue } = configuration.events[event]
         const subscriberChannel = await messageBroker.createChannel()
         subscriberChannel.assertExchange(exchange, 'fanout', { durable: true });
         const { queue: subscriberQueue } = await subscriberChannel.assertQueue(queue)
         subscriberChannel.bindQueue(subscriberQueue, exchange, '')
         subscriberChannel.consume(subscriberQueue, message => handler(RabbitMessage(subscriberChannel, message)), { noAck: false })
         logger.info(`[RABBIT] SUB => Subscribed to topic: ${exchange}`)
+        this.subscribers[event] = subscriberQueue
     },
 
     unsubscribe: async function(event) {
-        logger.info(`[RABBIT] UNSUB => Unsubscribed from topic: ${event}`)
+        const subscriberQueue = this.subscribers[event]
+        if (subscriberQueue) {
+            delete this.subscribers[event]
+            logger.info(`[RABBIT] UNSUB => Unsubscribed from topic: ${event}`)
+        }
     }
 })

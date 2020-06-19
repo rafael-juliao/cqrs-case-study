@@ -1,9 +1,9 @@
-module.exports = ({ dataQueryInterface }) => ({
+module.exports = ({ dataQuery }) => ({
 
     getOfferById: async ({ offerId }) =>
-        await dataQueryInterface.getOfferById({ offerId }),
+        await dataQuery.getOfferById({ offerId }),
 
     searchOffers: async ({ search, status }) => 
-        await dataQueryInterface.searchOffers({ search, status }),
+        await dataQuery.searchOffers({ search, status }),
 
 })

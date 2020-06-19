@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi')
 const ExpressValidator = require('@rafael-juliao/joi-express-middleware')
 
-module.exports = {
+module.exports = () => ({
     getOfferById: ExpressValidator({
         params: Joi.object().keys({
             offerId: Joi.string().required()
@@ -13,4 +13,4 @@ module.exports = {
             status: Joi.string().valid('active', 'created').optional()
         })
     })
-}
+})

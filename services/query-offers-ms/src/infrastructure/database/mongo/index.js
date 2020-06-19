@@ -1,7 +1,7 @@
-const { asFunction, aliasTo } = require('awilix')
+const { asFunction } = require('awilix')
 
 module.exports = {
     database: asFunction(require('./MongoDatabase')).singleton(),
-    dataQueryInterface: asFunction(require('./MongoDataQueryAdapter')),
-    dataPersistenceInterface: asFunction(require('./MongoDataPersistenceAdapter')),
+    dataQuery: asFunction(require('./MongoDataQueryAdapter')),
+    dataPersistence: asFunction(require('./MongoDataPersistenceAdapter')),
 }
