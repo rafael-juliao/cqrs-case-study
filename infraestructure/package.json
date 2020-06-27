@@ -1,25 +1,13 @@
 {
-    "name": "docker-cqrs-integrated-tests",
+    "name": "cqrs-case-study-infrastructured",
     "version": "1.0.0",
     "type": "module",
-    "description": "An integrated environemnt containing everything necessary to run test the cqrs services",
-    "main": "index.js",
+    "description": "An integrated environemnt containing everything necessary to run test the cqrs services study case",
     "scripts": {
-      "int:start": "docker-compose -p test-integration -f docker-compose.integration.yml up -d",
-      "int:stop": "docker-compose -p test-integration -f docker-compose.integration.yml down",
-      "int:restart": "npm run int:stop; npm run int:start",
-      "perf:start": "docker-compose -p test-performance -f docker-compose.performance.yml up -d",
-      "perf:stop": "docker-compose -p test-performance -f docker-compose.performance.yml down && sh ./dependencies/clean-pumba-containers.sh",
-      "perf:restart": "npm run perf:stop; npm run perf:start"
+      "start": "docker-compose -p case-study -f docker-compose.integration.yml up -d",
+      "stop": "docker-compose -p case-study -f docker-compose.integration.yml down",
+      "restart": "npm run stop; npm run start"
     },
-    "repository": {
-      "type": "git",
-      "url": "https://"
-    },
-    "keywords": [
-      "ms",
-      "sample"
-    ],
     "author": "Rafael Juliao Bessega",
     "license": "ISC"
   }

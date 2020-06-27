@@ -9,7 +9,7 @@ export default () => {
     logger.info('[HTTP] Creating offers controller')
     const offersRouter = Router()
     offersRouter.post('/offers', offersController.createOffer)
-    offersRouter.patch('/offers/:offerId/status', offersController.changeStatus)
+    offersRouter.put('/offers/:offerId', offersController.updateOffer)
     offersRouter.get('/offers/:offerId', offersController.getOfferById)
     offersRouter.get('/offers', offersController.searchOffers)
     return offersRouter

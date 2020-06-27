@@ -1,4 +1,4 @@
-import productsService from './ProductsService.mjs'
+import productsOperations from './ProductsOperations.mjs'
 import productsPersistence from './ProductsPersistence.mjs'
 
 export default {
@@ -6,7 +6,7 @@ export default {
     createProduct: async (req, res, next) => {
         try {
             const product = req.body
-            const createdProduct = await productsService.create(product)
+            const createdProduct = await productsOperations.create(product)
             res.status(201).json(createdProduct).end()
         } catch (err) {
             next(err)
@@ -24,12 +24,12 @@ export default {
         }
     },
 
-    changeStatus: async (req, res, next) => {
+    updateProduct: async (req, res, next) => {
         try {
             const { productId } = req.params
-            const { status } = req.body
-            const product = await productsService.changeStatus(productId, status)
-            res.status(200).json(product).end()
+            const product = req.body
+            const updatedProduct = await productsOperations.updateProduct(productId, product)
+            res.status(200).json(updatedProduct).end()
         } catch (err) {
             next(err)
         }

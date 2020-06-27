@@ -11,11 +11,11 @@ export default {
         return createdProduct
     },
 
-    changeStatus: async (productId, status) => {
-        const product = await productsPersistence.update(productId, {status})
-        if (!product) throw new Error(`404|Product ${productId} not found`)
-        await eventPublisher.publish(ProductEvents.PRODUCT_STATUS_CHANGED, product)
-        return product
+    updateProduct: async (productId, product) => {
+        const updatedProduct = await productsPersistence.update(productId, product)
+        if (!updatedProduct) throw new Error(`404|Product ${productId} not found`)
+        await eventPublisher.publish(ProductEvents.PRODUCT_UPDATED, updatedProduct)
+        return updatedProduct
     }
 
 }

@@ -11,23 +11,14 @@ module.exports = ({ mongoModelFactory }) => {
     
         searchOffers: async ({
             search,
-            status,
-            page = 0,
-            limit = 50,
+            promotion
         }) => {
             const pipeline = pipelines.searchOffers({
                 search,
-                status,
-                page,
-                limit
+                promotion
             })
-            const [{ count: [counter], offers }] = await offersModel.aggregate(pipeline)
-            return {
-                page,
-                limit,
-                total: counter ? counter.total : 0,
-                offers
-            }
+            const offers = await offersModel.aggregate(pipeline)
+            return offers
         }
     
     }

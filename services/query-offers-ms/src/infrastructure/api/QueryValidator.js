@@ -10,7 +10,7 @@ module.exports = () => ({
     searchOffers: ExpressValidator({
         query: Joi.object().keys({
             search: Joi.string().optional(),
-            status: Joi.string().valid('active', 'created').optional()
+            promotion: Joi.string().valid('true', 'false').optional()
         })
     })
 })

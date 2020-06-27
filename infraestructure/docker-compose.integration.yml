@@ -108,7 +108,7 @@ services:
     environment:
       APP_PORT: "3000"
       DATABASE_URL: "mongodb"
-      MESSAGE_CHANNEL_URL: "rabbitmq"
+      MESSAGE_BROKER_URL: "rabbitmq"
     command: bash -c "./wait.sh mongodb:27017 && ./wait.sh rabbitmq:5672 && npm run start"
     ports:
       - 3002:3000

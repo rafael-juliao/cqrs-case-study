@@ -46,18 +46,13 @@ module.exports = ({
 
     searchOffers: ({
         search,
-        status,
-        page,
-        limit,
+        promotion,
     }) => {
-
-        page = Number(page)
-        limit = Number(limit)
 
         const pipeline = []
 
-        status && pipeline.push({
-            '$match': { status }
+        promotion && pipeline.push({
+            '$match': { promotion }
         })
        
         pipeline.push(...[
@@ -109,18 +104,6 @@ module.exports = ({
                 ]
             }
         }) 
-
-        pipeline.push(
-            { 
-                '$facet': {
-                    count:  [{ '$count': "total" }],
-                    offers: [
-                        { '$skip': page*limit },
-                        { '$limit': limit }
-                    ]
-                }
-            }
-        )
         
         return pipeline
     }

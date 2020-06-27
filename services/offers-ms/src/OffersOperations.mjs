@@ -13,11 +13,11 @@ export default {
         return createdOffer
     },
 
-    changeStatus: async (offerId, status) => {
-        const offer = await offersPersistence.update(offerId, {status})
-        if (!offer) throw new Error(`404|Offer ${offerId} not found`)
-        await eventPublisher.publish(OfferEvents.OFFER_STATUS_CHANGED, offer)
-        return offer
+    updateOffer: async (offerId, offer) => {
+        const updatedOffer = await offersPersistence.update(offerId, offer)
+        if (!updatedOffer) throw new Error(`404|Offer ${offerId} not found`)
+        await eventPublisher.publish(OfferEvents.OFFER_UPDATED, updatedOffer)
+        return updatedOffer
     },
 
     getOfferById: async offerId => {
@@ -30,7 +30,7 @@ export default {
 
     searchOffers: async ({
         search,
-        status,
+        promotion,
     }) => {
         const offers = []
         const memoryLimit = 100
@@ -43,7 +43,7 @@ export default {
         }
 
         for (let page = 0; page < iterations; page++) {
-            let possibleOffers = await offersPersistence.find( status? { status } : {}, page*memoryLimit, memoryLimit);
+            let possibleOffers = await offersPersistence.find( promotion? { promotion } : {}, page*memoryLimit, memoryLimit);
 
             await Promise.all(possibleOffers.map(fetchAllProducts))
 
