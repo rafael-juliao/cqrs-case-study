@@ -12,8 +12,9 @@ module.exports = ({ queryOperations }) => ({
 
     searchOffers: async (req, res, next) => {
         try {
-            const { query: { search, promotion }} = req
-            const result = await queryOperations.searchOffers({ search, promotion: JSON.parse(promotion) })
+            let { query: { search, promotion }} = req
+            promotion = promotion && JSON.parse(promotion)
+            const result = await queryOperations.searchOffers({ search, promotion })
             res.status(200).json(result).end()
         } catch (err) {
             next(err)
