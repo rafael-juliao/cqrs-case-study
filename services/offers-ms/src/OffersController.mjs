@@ -36,7 +36,7 @@ export default {
     searchOffers: async (req, res, next) => {
         try {
             let { search, promotion } = req.query
-            promotion = promotion & JSON.parse(promotion)
+            promotion = promotion && JSON.parse(promotion)
             const result = await offersOperations.searchOffers({ search, promotion })
             res.status(200).json(result).end()
         } catch (err) {
