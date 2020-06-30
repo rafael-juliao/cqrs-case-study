@@ -1,5 +1,5 @@
 const [
-    offersCount = 10,
+    offersCount = 50,
     productsCount = 5,
 ] = process.argv.slice(2);
 (async () => {
@@ -9,7 +9,10 @@ const [
             count: offersCount
         },
         productsConfig: {
-            count: productsCount
+            count: productsCount,
+            data: {
+                name: 'Camiseta'
+            }
         }
     })
     console.log(`Created ${offers.length} offers and ${offers.length*productsCount} products`)

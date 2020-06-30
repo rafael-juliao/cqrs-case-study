@@ -1,20 +1,12 @@
 config:
-  payload:
-    path: "dataset.csv"
-    skipHeader: true
-    fields:
-      - "offerId"
   target: 'http://localhost:3002/api/offers'
   phases:
-    - duration: 5
-      arrivalRate: 100
+    - duration: 10 # total test duration
+      arrivalRate: 100 # request per second
 scenarios:
   - flow:
-    - get:
-        url: "/{{ offerId }}"
-        name: "get offer by id"
     - get:
         url: "/"
         name: "search offers by product name"
         qs:
-          search: "PRODUCT"
+          search: "Camiseta"

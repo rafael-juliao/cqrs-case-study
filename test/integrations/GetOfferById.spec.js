@@ -9,7 +9,7 @@ describe('Feature: Get offer by id', () => {
         before(async() => {
             const [{ _id }] = await OffersService.insertOffers({
                 offersConfig: { count: 1, data: { name: 'OFFER' } },
-                productsConfig: { data: { name: 'PRODUCT' } },
+                productsConfig: { data: { name: 'Camiseta' } },
             })
             offerId = _id
         })
@@ -28,7 +28,7 @@ describe('Feature: Get offer by id', () => {
                     expect(item).to.have.property('product')
                     expect(item.product).to.have.property('_id')
                     expect(item.product).to.have.property('name')
-                    expect(item.product.name).to.eq('PRODUCT')
+                    expect(item.product.name).to.eq('Camiseta')
                 }
                 done()
             })
@@ -49,7 +49,7 @@ describe('Feature: Get offer by id', () => {
                     expect(item).to.have.property('product')
                     expect(item.product).to.have.property('_id')
                     expect(item.product).to.have.property('name')
-                    expect(item.product.name).to.eq('PRODUCT')
+                    expect(item.product.name).to.eq('Camiseta')
                 }
                 done()
             })

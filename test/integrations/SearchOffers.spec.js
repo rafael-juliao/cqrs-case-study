@@ -1,7 +1,7 @@
 const { OffersService, OffersClient, QueryOffersClient } = require('../data')
 const { expect } = require('chai')
 
-describe('Feature: Search offers by text and status', () => {
+describe('Feature: Search offers by text and promotion', () => {
 
     describe('Given that I have one offer in the database', () => {
 
@@ -9,7 +9,7 @@ describe('Feature: Search offers by text and status', () => {
         before(async() => {
             const [{ _id }] = await OffersService.insertOffers({
                 offersConfig: { count: 1, data: { name: 'OFFER' } },
-                productsConfig: { data: { name: 'PRODUCT' } },
+                productsConfig: { data: { name: 'Camiseta' } },
             })
             offerId = _id
         })
@@ -28,7 +28,7 @@ describe('Feature: Search offers by text and status', () => {
                     expect(item).to.have.property('product')
                     expect(item.product).to.have.property('_id')
                     expect(item.product).to.have.property('name')
-                    expect(item.product.name).to.eq('PRODUCT')
+                    expect(item.product.name).to.eq('Camiseta')
                 }
                 done()
             })
@@ -49,7 +49,7 @@ describe('Feature: Search offers by text and status', () => {
                     expect(item).to.have.property('product')
                     expect(item.product).to.have.property('_id')
                     expect(item.product).to.have.property('name')
-                    expect(item.product.name).to.eq('PRODUCT')
+                    expect(item.product.name).to.eq('Camiseta')
                 }
                 done()
             })

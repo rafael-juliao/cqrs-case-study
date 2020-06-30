@@ -1,14 +1,10 @@
-const { OffersService, OffersClient, QueryOffersClient } = require('../data')
-const { parse } = require('json2csv')
-const fs = require('fs')
+const { OffersService,  } = require('../data')
 
 const setupTest = async() => {
-    const [{ _id }] = await OffersService.insertOffers({
-        offersConfig: { count: 1, data: { name: 'OFFER' } },
-        productsConfig: { data: { name: 'PRODUCT' } },
+    const offers = await OffersService.insertOffers({
+        offersConfig: { count: 10 },
+        productsConfig: { data: { name: 'Camiseta' } },
     })
-    const csv = parse([{ offerId: _id }])
-    fs.writeFileSync(`${__dirname}/dataset.csv`, csv)
 }
 
 setupTest()
